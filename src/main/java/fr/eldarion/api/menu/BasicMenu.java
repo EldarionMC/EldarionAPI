@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class BasicMenu implements Listener {
 
@@ -14,7 +14,7 @@ public class BasicMenu implements Listener {
 	
 	
 	
-	public BasicMenu(Plugin instance, String title, InventorySize size) {
+	public BasicMenu(JavaPlugin instance, String title, InventorySize size) {
 		this.title = title;
 		createInventory(size, title);
 		
