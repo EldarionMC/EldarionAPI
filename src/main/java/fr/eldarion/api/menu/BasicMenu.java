@@ -42,6 +42,8 @@ public class BasicMenu implements Listener {
 	
 	
 	public void onPlayerInteractInventory(InventoryClickEvent e) {
+		System.out.println("test");
+		
 		if(e.getView().getTitle() == this.getTitle()) {
 			e.setCancelled(true);
 			e.getWhoClicked().sendMessage("test");
