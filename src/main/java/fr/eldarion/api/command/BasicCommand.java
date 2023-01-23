@@ -7,11 +7,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class BasicCommand implements CommandExecutor {	
 	
-	private BasicCommandCallback callback;
+	private BasicCommandClosure closure;
 	
 	
-	public BasicCommand(JavaPlugin instance, String name, BasicCommandCallback callback) {
-		this.callback = callback;
+	public BasicCommand(JavaPlugin instance, String name, BasicCommandClosure closure) {
+		this.closure = closure;
 		
 		instance.getCommand(name).setExecutor(this);
 	}
@@ -20,7 +20,7 @@ public class BasicCommand implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		return this.callback.commandCallback(sender, command, label, args);
+		return this.closure.commandClosure(sender, command, label, args);
 	}
 
 }
