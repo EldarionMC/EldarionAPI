@@ -17,8 +17,6 @@ public class BasicMenu implements Listener {
 	public BasicMenu(JavaPlugin instance, String title, InventorySize size) {
 		this.title = title;
 		this.inventory = createInventory(size, title);
-		
-		Bukkit.getPluginManager().registerEvents(this, instance);
 	}
 	
 	
@@ -42,8 +40,6 @@ public class BasicMenu implements Listener {
 	
 	
 	public void onPlayerInteractInventory(InventoryClickEvent e) {
-		System.out.println("test");
-		
 		if(e.getView().getTitle() == this.getTitle()) {
 			e.setCancelled(true);
 			e.getWhoClicked().sendMessage("test");
