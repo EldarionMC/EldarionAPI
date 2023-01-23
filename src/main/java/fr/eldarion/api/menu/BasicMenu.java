@@ -16,7 +16,7 @@ public class BasicMenu implements Listener {
 	
 	public BasicMenu(JavaPlugin instance, String title, InventorySize size) {
 		this.title = title;
-		createInventory(size, title);
+		this.inventory = createInventory(size, title);
 		
 		Bukkit.getPluginManager().registerEvents(this, instance);
 	}
