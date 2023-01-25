@@ -12,12 +12,14 @@ public class BasicMenu implements Listener {
 	public String title;
 	
 	private Inventory inventory;
+	private BasicMenuClosure closure;
 	
 	
 	
-	public BasicMenu(JavaPlugin instance, String title, InventorySize size) {
+	public BasicMenu(JavaPlugin instance, String title, InventorySize size, BasicMenuClosure closure) {
 		this.title = title;
 		this.inventory = createInventory(size, title);
+		this.closure = closure;
 		
 		instance.getServer().getPluginManager().registerEvents(this, instance);
 	}
@@ -45,7 +47,8 @@ public class BasicMenu implements Listener {
 	public void onPlayerInteractInventory(InventoryClickEvent e) {
 		if(e.getView().getTitle() == this.getTitle()) {
 			e.setCancelled(true);
-			e.getWhoClicked().sendMessage("test");
+			
+			this.closure.menuClosure(e);
 		}
 	}
 }
