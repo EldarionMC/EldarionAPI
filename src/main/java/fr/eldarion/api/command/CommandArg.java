@@ -4,19 +4,17 @@ import org.bukkit.command.CommandSender;
 
 public class CommandArg {
 
-	private CommandSender sender;
 	private String argName;
 	private String[] args;
 	private BasicCommandClosure closure;
 	private boolean ignoreCase;
 	
 	
-	public CommandArg(CommandSender sender, String argsName, String[] args, BasicCommandClosure closure) {
-		this(sender, argsName, args, closure, true);
+	public CommandArg(String argsName, String[] args, BasicCommandClosure closure) {
+		this(argsName, args, closure, true);
 	}
 	
-	public CommandArg(CommandSender sender, String argsName, String[] args, BasicCommandClosure closure, boolean ignoreCase) {
-		this.sender = sender;
+	public CommandArg(String argsName, String[] args, BasicCommandClosure closure, boolean ignoreCase) {
 		this.argName = argsName;
 		this.args = args;
 		this.closure = closure;
@@ -33,7 +31,7 @@ public class CommandArg {
 	}
 	
 	
-	public void execute() {
+	public void execute(CommandSender sender) {
 		this.closure.commandClosure(sender, argName, args);
 	}
 	
