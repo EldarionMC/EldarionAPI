@@ -41,7 +41,6 @@ public class BasicCommand implements CommandExecutor {
 				}
 			}
 			
-			System.out.println("test: true");
 			return true;
 		}
 
