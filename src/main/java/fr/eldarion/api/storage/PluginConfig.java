@@ -4,8 +4,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PluginConfig extends YamlStorage {
 
-	public PluginConfig(JavaPlugin instance, String fileName) {
-		super(instance, fileName);
+	public PluginConfig(JavaPlugin instance) {
+		super(instance, "config");
 		
 		this.getYaml().set("message.only-player", "§cVous devez être un joueur pour exécuter cette commande");
 		
