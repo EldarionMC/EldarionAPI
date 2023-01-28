@@ -43,14 +43,13 @@ public class BasicCommand implements CommandExecutor {
 			System.out.println("test: true");
 			return true;
 		}
-		
-		System.out.println("test: false");
+
 		return false;
 	}
 	
 	
 	public void addArgument(CommandArg arg) {
-		
+		this.commandArgs.add(arg);
 	}
 
 }
