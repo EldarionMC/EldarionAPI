@@ -9,17 +9,22 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.eldarion.api.storage.PluginConfig;
+
 public class BasicCommand implements CommandExecutor {	
+	
+	private PluginConfig config;
 	private String commandName;
 	private List<CommandArg> commandArgs;
 	private boolean ignoreCase;
 	
 	
-	public BasicCommand(JavaPlugin instance, String commandName) {
-		this(instance, commandName, true);
+	public BasicCommand(JavaPlugin instance, PluginConfig config, String commandName) {
+		this(instance, config, commandName, true);
 	}
 	
-	public BasicCommand(JavaPlugin instance, String commandName, boolean ignoreCase) {
+	public BasicCommand(JavaPlugin instance, PluginConfig config, String commandName, boolean ignoreCase) {
+		this.config = config;
 		this.commandName = commandName;
 		this.commandArgs = new ArrayList<>();
 		this.ignoreCase = ignoreCase;
@@ -35,7 +40,7 @@ public class BasicCommand implements CommandExecutor {
 			if(args.length >= 1) {
 				for(CommandArg arg : this.commandArgs) {
 					if((arg.ignoreCase() && arg.getArgName().equalsIgnoreCase(args[0])) || (!arg.ignoreCase() && arg.getArgName().equals(args[0]))) {
-						arg.execute(sender, Arrays.copyOfRange(args, 1, args.length));
+						arg.execute(this.config, sender, Arrays.copyOfRange(args, 1, args.length));
 						break;
 					}
 				}
@@ -48,8 +53,20 @@ public class BasicCommand implements CommandExecutor {
 	}
 	
 	
-	public void addArgument(CommandArg arg) {
+	public BasicCommand addArgument(CommandArg arg) {
 		this.commandArgs.add(arg);
+		
+		return this;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
