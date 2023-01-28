@@ -1,6 +1,7 @@
 package fr.eldarion.api.command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.command.Command;
@@ -34,7 +35,7 @@ public class BasicCommand implements CommandExecutor {
 			if(args.length >= 1) {
 				for(CommandArg arg : this.commandArgs) {
 					if((arg.ignoreCase() && arg.getArgName().equalsIgnoreCase(args[0])) || (!arg.ignoreCase() && arg.getArgName().equals(args[0]))) {
-						arg.execute(sender);
+						arg.execute(sender, Arrays.copyOfRange(args, 1, args.length));
 						break;
 					}
 				}

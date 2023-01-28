@@ -5,18 +5,16 @@ import org.bukkit.command.CommandSender;
 public class CommandArg {
 
 	private String argName;
-	private String[] args;
 	private BasicCommandClosure closure;
 	private boolean ignoreCase;
 	
 	
-	public CommandArg(String argsName, String[] args, BasicCommandClosure closure) {
-		this(argsName, args, closure, true);
+	public CommandArg(String argsName, BasicCommandClosure closure) {
+		this(argsName, closure, true);
 	}
 	
-	public CommandArg(String argsName, String[] args, BasicCommandClosure closure, boolean ignoreCase) {
+	public CommandArg(String argsName, BasicCommandClosure closure, boolean ignoreCase) {
 		this.argName = argsName;
-		this.args = args;
 		this.closure = closure;
 		this.ignoreCase = ignoreCase;
 	}
@@ -31,7 +29,7 @@ public class CommandArg {
 	}
 	
 	
-	public void execute(CommandSender sender) {
+	public void execute(CommandSender sender, String[] args) {
 		this.closure.commandClosure(sender, argName, args);
 	}
 	
