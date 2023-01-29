@@ -27,6 +27,11 @@ public class SQLite {
 	}
 	
 	
+	public Connection getConnection() {
+		return this.connection;
+	}
+	
+	
 	private Connection initializeConnection() {
 		File dataFolder = new File(instance.getDataFolder(), dbName + ".db");
 		
