@@ -89,7 +89,6 @@ public class SQLite {
 		
 		try {
             rs = statement.executeQuery();
-            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -105,7 +104,6 @@ public class SQLite {
             e.printStackTrace();
         }
 	}
-	
 }
 
 
