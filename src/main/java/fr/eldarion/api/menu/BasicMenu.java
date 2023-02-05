@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BasicMenu implements Listener {
@@ -40,6 +41,11 @@ public class BasicMenu implements Listener {
 		Inventory inv = Bukkit.createInventory(null, size.value(), name);
 		
 		return inv;
+	}
+	
+	
+	public void setItem(int slot, ItemStack item) {
+		getInventory().setItem(slot, item);
 	}
 	
 	

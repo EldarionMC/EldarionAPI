@@ -7,11 +7,12 @@ import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.eldarion.api.storage.PluginConfig;
 
-public class BasicCommand implements CommandExecutor {	
+public class BasicCommand implements CommandExecutor, TabExecutor {	
 	
 	private PluginConfig config;
 	private String commandName;
@@ -34,6 +35,14 @@ public class BasicCommand implements CommandExecutor {
 	
 	
 	
+	
+	public BasicCommand addArgument(CommandArg arg) {
+		this.commandArgs.add(arg);
+		
+		return this;
+	}
+	
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if((this.ignoreCase && command.getName().equalsIgnoreCase(this.commandName)) || (!this.ignoreCase && command.getName().equals(this.commandName))) {
@@ -52,12 +61,23 @@ public class BasicCommand implements CommandExecutor {
 		return false;
 	}
 	
-	
-	public BasicCommand addArgument(CommandArg arg) {
-		this.commandArgs.add(arg);
-		
-		return this;
-	}
+	@Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if((this.ignoreCase && command.getName().equalsIgnoreCase(this.commandName)) || (!this.ignoreCase && command.getName().equals(this.commandName))) {
+            List<String> tab = new ArrayList<String>();
+
+            if(args.length == 1) {
+                for(CommandArg cmdArg : commandArgs) {
+                	tab.add(cmdArg.getArgName());
+                }
+
+                return tab;
+            }
+
+        }
+
+        return null;
+    }
 
 }
 
