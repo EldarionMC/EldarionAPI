@@ -1,6 +1,7 @@
 package fr.eldarion.api.storage;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,19 +11,13 @@ public class YamlStorage {
 	
 	private JavaPlugin instance;
 	private String fileName;
-	private String resourceFileName;
 	
 	private File file;
 	private FileConfiguration fileConfig;
 	
 	public YamlStorage(JavaPlugin instance, String fileName) {
-		this(instance, fileName, fileName);
-	}
-	
-	public YamlStorage(JavaPlugin instance, String fileName, String resourceFileName) {
 		this.instance = instance;
 		this.fileName = fileName;
-		this.resourceFileName = resourceFileName;
 		
 		loadYaml();
 	}
@@ -39,7 +34,11 @@ public class YamlStorage {
 	private void loadYaml() {
 		file = new File(instance.getDataFolder(), fileName + ".yml");
 		if(!file.exists()) {
-			instance.saveResource(resourceFileName + ".yml", false);
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		fileConfig = new YamlConfiguration();
