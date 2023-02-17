@@ -10,15 +10,28 @@ public class YamlStorage {
 	
 	private JavaPlugin instance;
 	private String fileName;
+	private String resourceFileName;
 	
 	private File file;
 	private FileConfiguration fileConfig;
 	
 	public YamlStorage(JavaPlugin instance, String fileName) {
+		this(instance, fileName, fileName);
+	}
+	
+	public YamlStorage(JavaPlugin instance, String fileName, String resourceFileName) {
 		this.instance = instance;
 		this.fileName = fileName;
+		this.resourceFileName = resourceFileName;
 		
 		loadYaml();
+	}
+	
+	
+	
+	public void set(String path, Object value) {
+		fileConfig.set(path, value);
+		saveYaml();
 	}
 	
 	
@@ -26,7 +39,7 @@ public class YamlStorage {
 	private void loadYaml() {
 		file = new File(instance.getDataFolder(), fileName + ".yml");
 		if(!file.exists()) {
-			instance.saveResource(fileName + ".yml", false);
+			instance.saveResource(resourceFileName + ".yml", false);
 		}
 		
 		fileConfig = new YamlConfiguration();
