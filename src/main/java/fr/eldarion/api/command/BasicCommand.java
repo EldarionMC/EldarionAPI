@@ -18,6 +18,7 @@ public class BasicCommand implements CommandExecutor, TabExecutor {
 	private String commandName;
 	private List<CommandArg> commandArgs;
 	private boolean ignoreCase;
+	private BasicCommandClosure defaultAction = null;
 	
 	
 	public BasicCommand(JavaPlugin instance, PluginConfig config, String commandName) {
@@ -42,6 +43,10 @@ public class BasicCommand implements CommandExecutor, TabExecutor {
 		return this;
 	}
 	
+	public void setDefaultAction(BasicCommandClosure closure) {
+		this.defaultAction = closure;
+	}
+	
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -50,9 +55,13 @@ public class BasicCommand implements CommandExecutor, TabExecutor {
 				for(CommandArg arg : this.commandArgs) {
 					if((arg.ignoreCase() && arg.getArgName().equalsIgnoreCase(args[0])) || (!arg.ignoreCase() && arg.getArgName().equals(args[0]))) {
 						arg.execute(this.config, sender, Arrays.copyOfRange(args, 1, args.length));
-						break;
+						return true;
 					}
 				}
+			}
+			
+			if(defaultAction != null) {
+				defaultAction.commandClosure(sender, label, args);
 			}
 			
 			return true;
